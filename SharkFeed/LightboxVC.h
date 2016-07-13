@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HTTPCall.h"
 
-@interface LightboxVC : UIViewController <HTTPCallDelegate>
+@interface LightboxVC : UIViewController <HTTPCallDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic) UIImage *rawImage;
 

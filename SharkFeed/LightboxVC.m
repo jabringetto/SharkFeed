@@ -18,6 +18,11 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    _lightboxImage.userInteractionEnabled = YES;
+    UIPinchGestureRecognizer *pgr = [[UIPinchGestureRecognizer alloc]
+                                     initWithTarget:self action:@selector(handlePinch:)];
+    pgr.delegate = self;
+    [_lightboxImage addGestureRecognizer:pgr];
     // Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -168,6 +173,16 @@
     NSString* decodedString = [decodedAttributedString string];
     
     return decodedString;
+}
+-(void)handlePinch:(UIPinchGestureRecognizer*)recognizer{
+    if ([recognizer state] == UIGestureRecognizerStateEnded) {
+        NSLog(@"======== Scale Applied ===========");
+        if ([recognizer scale]<1.0f) {
+            [recognizer setScale:1.0f];
+        }
+        CGAffineTransform transform = CGAffineTransformMakeScale([recognizer scale],  [recognizer scale]);
+        _lightboxImage.transform = transform;
+    }
 }
 
 
